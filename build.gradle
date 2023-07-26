@@ -1,0 +1,67 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+// Залежність за замовчуванням
+
+task taskA {
+    doLast {
+        println "Task A executed"
+    }
+}
+
+task taskB {
+    dependsOn taskA
+    doLast {
+        println "Task B executed"
+    }
+}
+
+// Залежність за допомогою mustRunAfter
+task taskC {
+    doLast {
+        println "Task C executed"
+    }
+}
+
+task taskD {
+    doLast {
+        println "Task D executed"
+    }
+}
+
+taskD.mustRunAfter(taskC)
+
+// Залежність за допомогою shouldRunAfter
+
+task taskE {
+    doLast {
+        println "Task E executed"
+    }
+}
+
+task taskF {
+    doLast {
+        println "Task F executed"
+    }
+}
+taskF.shouldRunAfter(taskE)
